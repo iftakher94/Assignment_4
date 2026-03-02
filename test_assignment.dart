@@ -35,7 +35,7 @@ class _TheRoyalCourtState extends State<TheRoyalCourt> {
     summonAllScrolls();
   }
 
-  // 1. GET - Sob data niye asha
+ 
   Future<void> summonAllScrolls() async {
     setState(() => _isLoading = true);
     try {
@@ -50,7 +50,7 @@ class _TheRoyalCourtState extends State<TheRoyalCourt> {
     }
   }
 
-  // 2. POST - Notun task jog kora
+ 
   Future<void> proclaimNewTask() async {
     final response = await http.post(
       Uri.parse(_realmUrl),
@@ -66,7 +66,7 @@ class _TheRoyalCourtState extends State<TheRoyalCourt> {
     }
   }
 
-  // 3. PUT - Edit kora (IMPORTANT FIX)
+  
   Future<void> rectifyScroll(int id, int index) async {
     final response = await http.put(
       Uri.parse('$_realmUrl/$id'),
@@ -74,7 +74,7 @@ class _TheRoyalCourtState extends State<TheRoyalCourt> {
       body: jsonEncode({"id": id, "title": "EDITED TITLE", "body": "Updated content"}),
     );
 
-    // API success hole amra local list-eo change kore dibo
+    
     if (response.statusCode == 200) {
       setState(() {
         _scrolls[index]['title'] = "EDITED TITLE";
@@ -84,11 +84,11 @@ class _TheRoyalCourtState extends State<TheRoyalCourt> {
     }
   }
 
-  // 4. DELETE - Muche phela (IMPORTANT FIX)
+ 
   Future<void> banishTask(int id, int index) async {
     final response = await http.delete(Uri.parse('$_realmUrl/$id'));
 
-    // API success hole list theke remove kore dibo
+    
     if (response.statusCode == 200) {
       setState(() {
         _scrolls.removeAt(index);
@@ -121,11 +121,11 @@ class _TheRoyalCourtState extends State<TheRoyalCourt> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.edit, color: Colors.blue),
-                    onPressed: () => rectifyScroll(scroll['id'], index), // Pass index
+                    onPressed: () => rectifyScroll(scroll['id'], index), 
                   ),
                   IconButton(
                     icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () => banishTask(scroll['id'], index), // Pass index
+                    onPressed: () => banishTask(scroll['id'], index), 
                   ),
                 ],
               ),
@@ -139,4 +139,5 @@ class _TheRoyalCourtState extends State<TheRoyalCourt> {
       ),
     );
   }
+
 }
